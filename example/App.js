@@ -1,21 +1,20 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import SmoothPinCodeInput from 'react-native-smooth-pincode-input';
+import React from "react";
+import { StyleSheet, Text, View } from "react-native";
+import SmoothPinCodeInput from "react-native-smooth-pincode-input";
 
 export default class App extends React.Component {
-
   state = {
-    code: '',
-    password: '',
+    code: "",
+    password: ""
   };
+
   pinInput = React.createRef();
 
-  _checkCode = (code) => {
-    if (code != '1234') {
-      this.pinInput.current.shake()
-        .then(() => this.setState({ code: '' }));
+  _checkCode = code => {
+    if (code != "1234") {
+      this.pinInput.current.shake().then(() => this.setState({ code: "" }));
     }
-  }
+  };
 
   render() {
     const { code, password } = this.state;
@@ -29,18 +28,21 @@ export default class App extends React.Component {
             value={code}
             onTextChange={code => this.setState({ code })}
             onFulfill={this._checkCode}
-            onBackspace={() => console.log('No more back.')}
-            />
+            onBackspace={() => console.log("No more back.")}
+          />
         </View>
 
         {/* password */}
         <View style={styles.section}>
           <Text style={styles.title}>Password</Text>
-          <SmoothPinCodeInput password mask="﹡"
+          <SmoothPinCodeInput
+            password
+            mask="﹡"
             cellSize={36}
             codeLength={8}
             value={password}
-            onTextChange={password => this.setState({ password })}/>
+            onTextChange={password => this.setState({ password })}
+          />
         </View>
 
         {/* underline */}
@@ -49,14 +51,14 @@ export default class App extends React.Component {
           <SmoothPinCodeInput
             cellStyle={{
               borderBottomWidth: 2,
-              borderColor: 'gray',
+              borderColor: "gray"
             }}
             cellStyleFocused={{
-              borderColor: 'black',
+              borderColor: "black"
             }}
             value={code}
             onTextChange={code => this.setState({ code })}
-            />
+          />
         </View>
 
         {/* customized */}
@@ -67,25 +69,24 @@ export default class App extends React.Component {
             cellStyle={{
               borderWidth: 2,
               borderRadius: 24,
-              borderColor: 'orange',
-              backgroundColor: 'gold',
+              borderColor: "orange",
+              backgroundColor: "gold"
             }}
             cellStyleFocused={{
-              borderColor: 'darkorange',
-              backgroundColor: 'orange',
+              borderColor: "darkorange",
+              backgroundColor: "orange"
             }}
             textStyle={{
               fontSize: 24,
-              color: 'salmon'
+              color: "salmon"
             }}
             textStyleFocused={{
-              color: 'crimson'
+              color: "crimson"
             }}
             value={code}
             onTextChange={code => this.setState({ code })}
-            />
+          />
         </View>
-
       </View>
     );
   }
@@ -94,17 +95,17 @@ export default class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center"
   },
   section: {
-    alignItems: 'center',
-    margin: 16,
+    alignItems: "center",
+    margin: 16
   },
   title: {
     fontSize: 16,
-    fontWeight: 'bold',
-    marginBottom: 8,
-  },
+    fontWeight: "bold",
+    marginBottom: 8
+  }
 });
