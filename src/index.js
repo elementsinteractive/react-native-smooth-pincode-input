@@ -38,6 +38,8 @@ class SmoothPinCodeInput extends Component {
   ref = React.createRef();
   inputRef = React.createRef();
 
+  maskTimeouts = [];
+
   shake = () => {
     return this.ref.current.shake(650);
   };
@@ -49,6 +51,10 @@ class SmoothPinCodeInput extends Component {
   blur = () => {
     return this.inputRef.current.blur();
   };
+
+  componentWillUnmount() {
+    this._clearTimeouts();
+  }
 
   _inputCode = (code) => {
     const { password, codeLength = 4, onTextChange, onFulfill } = this.props;
@@ -76,8 +82,16 @@ class SmoothPinCodeInput extends Component {
         },
         this.props.maskDelay
       );
+
+      this.maskTimeouts.push(maskTimeout)
     }
   };
+
+  _clearTimeouts = () => {
+    this.maskTimeouts.forEach((timeoutId) => {
+      clearTimeout(timeoutId);
+    });
+  }
 
   _keyPress = (event) => {
     if (event.nativeEvent.key === 'Backspace') {
